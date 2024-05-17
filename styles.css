@@ -60,3 +60,11 @@ hr {
     border: 1px solid #ddd;
     margin: 2rem 0;
 }
+
+.image-container {
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height to center vertically */
+    width: 100vw;  /* Full width to center horizontally */
+}
+
