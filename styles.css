@@ -42,3 +42,21 @@ section {
 }
 
 
+.contact-info {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.skills, .experience, .projects {
+    list-style: none;
+    margin-bottom: 1rem;
+}
+
+.skills li, .experience li, .projects li {
+    margin-bottom: 0.5rem;
+}
+
+hr {
+    border: 1px solid #ddd;
+    margin: 2rem 0;
+}
