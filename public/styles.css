@@ -74,3 +74,67 @@ hr {
     width: 100vw;  /* Full width to center horizontally */
 }
 
+#author {
+   font-style: italic;
+   font-weight: normal;
+   font-size: 18px;
+   color: #1535d3;
+}
+
+#projects-container button {
+   background-color: #2b3137;
+   margin-top: 15px;
+   cursor: pointer;
+   border-radius: 8px;
+   border: none;
+   transition: 0.2s;
+   padding: 0;
+}
+
+#projects-container #git-btn {
+   margin-right: 10px;
+}
+
+#projects-container #git-btn:hover  {
+    background-color: #2dba4e;
+}
+
+#projects-container #project-btn:hover  {
+    background-color: #1cbdb8;
+}
+
+#projects-container button:active {
+    transform: scale(0.95);
+}
+
+#projects-container button a {
+   padding: 4px 10px;
+   display: flex;
+   align-items: center;
+   gap: 6px;
+   color: #fff;
+   text-decoration: none;
+}
+
+#projects-container button img {
+   width: 25px;
+}
+
+.project-component {
+   margin-top: 20px;
+}
+
+.project-component h3 {
+   margin-bottom: 10px;
+}
+
+#demonstration-gif {
+   width: 100%;
+   display: block;
+}
+
+.project-images {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
