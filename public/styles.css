@@ -73,14 +73,24 @@ hr {
     width: 100vw;  /* Full width to center horizontally */
 }
 
-#author {
+.author {
    font-style: italic;
    font-weight: normal;
    font-size: 18px;
    color: #1535d3;
 }
 
-#projects-container button {
+main {
+   display: flex;
+   flex-direction: column;
+   gap: 30px;
+}
+
+.project {
+   width: 100%;
+}
+
+.project button {
    background-color: #2b3137;
    margin-top: 15px;
    cursor: pointer;
@@ -90,23 +100,23 @@ hr {
    padding: 0;
 }
 
-#projects-container #git-btn {
+.project .git-btn {
    margin-right: 10px;
 }
 
-#projects-container #git-btn:hover  {
+.project .git-btn:hover  {
     background-color: #2dba4e;
 }
 
-#projects-container #project-btn:hover  {
+.project .project-btn:hover  {
     background-color: #1cbdb8;
 }
 
-#projects-container button:active {
+.project button:active {
     transform: scale(0.95);
 }
 
-#projects-container button a {
+.project button a {
    padding: 4px 10px;
    display: flex;
    align-items: center;
@@ -115,7 +125,7 @@ hr {
    text-decoration: none;
 }
 
-#projects-container button img {
+.project button img {
    width: 25px;
 }
 
