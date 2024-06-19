@@ -68,6 +68,153 @@
             <img src="images/tablet-board.png" alt="Tablet board">
             <img src="images/tablet-game-result.png" alt="Tablet game result">
          </div>
+         <br>
+         <div class="project-technical-outline">
+            <h3>Technical Outline</h3>
+            <br>
+            <h3>Design of the System</h3>
+            <p>The design of the system can be grouped into the following components:</p>
+            <ul>
+               <li>UI
+                  <ul>
+                     <li>Design of the header</li>
+                     <li>Design of the grid</li>
+                     <li>Design of the scoreboard</li>
+                  </ul>
+               </li>
+               <li>JavaScript and logic
+                  <ul>
+                     <li>Filling in a cell</li>
+                     <li>Computer turn</li>
+                     <li>Checking for winner</li>
+                     <li>Scoreboard</li>
+                     <li>Reset</li>
+                  </ul>
+               </li>
+            </ul>
+
+            <h3>UI</h3>
+            <b>Design of the main container</b>
+            <p>The main container is made of a main element. It uses CSS grid to orient the layout to allow the subcomponents to situate themselves inside.</p>
+            <ul>
+               <li><b>display: grid</b>: This makes the element a grid container, enabling the use of CSS Grid Layout for its child elements.</li>
+               <li><b>grid-template-columns repeat(3, 170px)</b>: This defines three columns in the grid, each 170 pixels wide.</li>
+               <li><b>grid-template-rows 45px repeat(3, 170px) 80px</b>: This defines the rows in the grid. The first row is 45 pixels tall, followed by three rows each 170 pixels tall, and a final row 80 pixels tall.</li>
+               <li><b>row-gap 20px</b>: This sets a 20-pixel gap between each row in the grid.</li>
+               <li><b>column-gap 20px</b>: This sets a 20-pixel gap between each column in the grid.</li>
+               <li><b>align-items stretch</b>: This makes the items within the grid stretch to fill the entire height of their grid area.</li>
+            </ul>
+            <br>
+            <b>Design of the header</b>
+            <p>The header is made of 3 parts:</p>
+            <ul>
+               <li><b>Logo</b>
+                  <ul>
+                     <li>An img element that has a src property of the logo svg file</li>
+                  </ul>
+               </li>
+               <li><b>Turn indicator</b>
+                  <ul>
+                     <li>A div that has an img for the icon corresponding to the current turn, and a span containing the text "turn"</li>
+                     <li>JavaScript is used to update the src property of the img to either an "x" or "o" depending on whos turn it is</li>
+                  </ul>
+               </li>
+               <li><b>Reset button</b>
+                  <ul>
+                     <li>A button with an img inside of it that is an svg icon</li>
+                     <li>Has an event listener for click events to reset the grid</li>
+                  </ul>
+               </li>
+            </ul>
+
+            <br>
+            <b>Design of the grid</b>
+               <p>The grid is nothing more than a series of divs. Due to the nature of the grid layout of the parent element, the main container, the cells naturally form a grid. Each cell in the grid has a border bottom property to display a shadow like appearance for a more 3d effect. Each cell in the grid can have a css class that will add an "x" or "o" icon as well as disable pointer events.</p>
+
+            <br>
+            <b>Design of the scoreboard</b>
+               <p>The scoreboard consists of 3 divs, each with their own color to make them distinctly represent the different score counts. Each div has a child span whos text is updated to display the score.</p>
+            
+            <br>
+            <b>Design of the banner</b>
+               <p>The banner, also known as the game result container, displays the result of the game. The <b>toggleGameResult</b> function in <b>tic-tac-toes.mjs</b> gets called to then toggle classes on the elemnts representing the game result banner. These css classes cuase an animation occurr to bring the game result banner into view.</p>
+            
+            <br>
+            <h3>JavaScript and Logic</h3>
+
+            <b>Filling in a cell</b>
+            <p>When a player fills in a cell, they do so by triggering a click event on any one of the cells in the grid. One of two thing can happen:</p>
+            <ul>
+               <li><b>The cell is occupied</b>, meaning it has either an x or o in it
+                  <ul>
+                     <li>In this case, the css property "pointer-events" will be set to "none", disallowing the user to trigger a click event on the cell</li>
+                  </ul>
+               </li>
+               <li><b>The cell is empty</b>
+                  <ul>
+                     <li>In this case, the cell has the css class added to either display an "x" or "o" (depending on the player's turn)</li>
+                     <li>A count of the number of total filled cells in the grid is incremented</li>
+                     <li>A count of the player's filled cells on the current row and column is incremented</li>
+                     <li>Each player, both the user --and the cpu have an array "rows" and "columns" where rows[i] and columns[i] represent the number of "x"s and "o"s, respectively (0 <= i <= 3)</li>
+                  </ul>
+               </li>
+            </ul>
+            <p>All of these pieces of information will be used to determine the game result.</p>
+            <br>
+            <b>Computer turn</b>
+            <ul>
+               <li>After the player fills in a cell and has their turn, the entire program waits 1.5 seconds (using async/await) to simulate the computer thinking.</li>
+               <li>The computer then fills in a cell with the exact same mechanism as the user filling a cell.</li>
+               <li>During the computer's turn, pointer events on the grid are disabled for the user.</li>
+            </ul>
+            <br>
+            <b>Checking for game result</b>
+            <p>The game can either end in the user winning, the computer winning, or the round ending in a draw:</p>
+            <ul>
+               <li><b>User winning:</b>
+                  <ul>
+                     <li>Each time the user places a cell, the number of filled cells across the current row, the current column, and both diagonals are checked to see if they equal 3 (which then indicates 3 in a row).</li>
+                     <li>If it does equal 3, the winning cells are highlighted and then the win banner appears.</li>
+                  </ul>
+               </li>
+               <li><b>Computer winning:</b>
+                  <ul>
+                     <li>The mechanism is the same as the user winning.</li>
+                  </ul>
+               </li>
+               <li><b>Draw:</b>
+                  <ul>
+                     <li>When a draw occurs, the variable that keeps track of the number of filled cells is found to be equal to the total number of cells.</li>
+                     <li>In this case, it is then known that all cells are full and no 3 in a row has been found.</li>
+                     <li>The draw banner appears.</li>
+                  </ul>
+               </li>
+            </ul>
+            <br>
+            <b>Scoreboard</b>
+            <ul>
+               <li>The scoreboard has 3 variables: The player score, the number of ties, and the computer score.</li>
+               <li>These values are incremented depending on the game result.</li>
+               <li>By using the local storage, the game scores can be stored on the local machine to be able to persist between different sessions of running the application.</li>
+            </ul>
+
+            <br>
+            <b>Reset</b>
+            <ul>
+               <li>The game reset feature is used to clear the board and reset all variables to their default initial values.</li>
+               <li>This includes:
+                  <ul>
+                     <li>Removing all classes from the cells that pertain to the filled in symbol (x or o).</li>
+                     <li>Setting the number of filled in cells to 0.</li>
+                     <li>Setting the number of filled in player cells and computer cells across all rows and columns to 0.</li>
+                     <li>Setting the player score, number of ties, computer score to 0 (and subsequently the corresponding local storage values to 0).</li>
+                  </ul>
+               </li>
+            </ul>
+         </div>
+      </section>
+
+         </div>
       </section>
       <section class="project">
          <h2>Trivia Quiz Project</h2>
