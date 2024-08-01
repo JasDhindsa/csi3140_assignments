@@ -151,3 +151,31 @@ main {
    flex-direction: column;
    gap: 20px;
 }
+
+#tictactoeButton {
+    background-color: #cbcbcb;
+    color: var(--almost-black);
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+#tictactoeButton:hover {
+    background-color: var(--light-blue);
+    transform: scale(1.05);
+}
+
+#tictactoeButton:active {
+    transform: scale(1);
+    background-color: var(--darker-light-blue);
+}
+
+#tictactoeButton:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 225, 255, 0.5);
+}
