@@ -22,8 +22,165 @@
    </header>
    <main>
       <section class="project">
+         <h2>Hospital Triage System</h2>
+         <h3 class="author">By Jordan Na and Jas Dhindsa</h3>
+         <button class="git-btn">
+            <a href="https://github.com/JasDhindsa/emergency_waitlist">
+               View Project Repo
+               <img src="assets/GitHub-Logo.wine.svg" alt="github icon">
+            </a>
+         </button>
+         <div class="project-component">
+            <h3>Project Description</h3>
+            <p>
+               A hospital triage system that allows patients to check in and be added to a waitlist. The system also
+               allows hospital staff to view the waitlist and update the status of patients. The system is built using
+               HTML,
+               CSS, React.js, and node.js. The system also features a MySQL database to store patient information.
+            </p>
+         </div>
+         <div class="project-component project-images">
+            <h3>Project Images</h3>
+            <img src="assets/hospital/patient_login.png" alt="Patient login">
+            <img src="assets/hospital/patient_screen.png" alt="Patient screen">
+            <img src="assets/hospital/admin_login.png" alt="Admin login">
+            <img src="assets/hospital/patient_data.png" alt="Patient data">
+            <img src="assets/hospital/add_new_patient.png" alt="Add new patient">
+         </div>
+         <div class="project-technical-outline">
+            <br>
+            <h3>Technical Outline</h3>
+            <br>
+            <h3>Design of the System</h3>
+            <p>The design of the system can be grouped into the following components:</p>
+            <ul>
+               <li>UI
+                  <ul>
+                     <li>Design of the login screen</li>
+                     <li>Design of the Patient Screen</li>
+                     <li>Design of the Admin Screen</li>
+                  </ul>
+               </li>
+               <li>JavaScript and logic
+                  <ul>
+                     <li>Logging in</li>
+                     <li>Viewing Patient Data</li>
+                     <li>Admitting a Patient</li>
+                     <li>Adding a new Patient</li>
+                  </ul>
+               </li>
+            </ul>
 
+            <h3>UI</h3>
+            <b>Design of the login screen</b>
+            <p>The Login component is a React functional component that manages the login process for two types of users: patients and
+            administrators. It uses the useState hook to manage the state of the currently selected user type (loginUser), which can
+            be either "Patient" or "Admin," and to handle any error messages during the login process.
 
+            The component starts by defining constants for the user types (PATIENT and ADMIN) and then initializes state variables
+            for the loginUser and any error messages. The changeLoginUserHandler function toggles the loginUser state between
+            "Patient" and "Admin."
+
+            The component contains two separate asynchronous functions, patientSubmitHandler and adminSubmitHandler, which handle
+            the form submission for patients and administrators, respectively. These functions make POST requests to the appropriate
+            endpoints (/patient/login for patients and /admin/login for administrators) and handle the response. If the login is
+            successful, the user state and data are updated through props passed to the component; if there is an error, an error
+            message is displayed.
+
+            The form layout changes dynamically based on the current loginUser. For patients, the form asks for a name and a
+            3-letter code, while for administrators, it asks for a username and a password. Both forms include validation to ensure
+            required fields are filled out, and they display an error message if the login fails.
+
+            The UI of the component is styled with a CSS module (Login.css). The form is contained within a form-container section
+            that has a dark blue background, rounded corners, and a box shadow for a modern look. The form elements are styled to be
+            responsive and user-friendly, with a focus on accessibility. The submit button changes color on hover, and an error
+            state is visually indicated by changing the button's color to red. Additionally, there is a button to switch between the
+            patient and admin login forms, enhancing user experience by allowing easy toggling between the two login modes.</p>
+            <br>
+            <b>Design of the Patient Screen</b>
+            <p>The Patient component is a simple React functional component designed to display personalized information for a
+            logged-in patient. It imports its styles from a CSS file named Patient.css. The component receives patient data through
+            props, specifically accessing the first element in the patientData array to obtain relevant details. It extracts the
+            first name of the patient from the patient_name field for a personalized greeting and displays the patient's wait time.
+
+            The component includes a logoutHandler function, which, when invoked by clicking the "Log Out" button, updates the user
+            state to "SignedOut" through a prop function, effectively logging the user out.
+
+            The UI is styled for a clean and user-friendly appearance. The main container (patient-container) has a dark blue
+            background, rounded corners, and a subtle box shadow to create a card-like appearance. The text elements, including the
+            greeting and wait time information, are centered for readability, with the wait time emphasized using a bold font. The
+            "Log Out" button includes a hover effect that reduces its opacity, providing visual feedback to the user. The overall
+            design ensures that the component is visually appealing and easy to interact with, enhancing the patient’s user
+            experience.</p>
+            <br>
+            <b>Design of the Admin Screen</b>
+            <p>The Admin component is a comprehensive React functional component designed to facilitate the administration of patient
+            data. It utilizes several hooks, including useState, useEffect, and useCallback, to manage the component’s state and
+            lifecycle events. The component maintains local states for controlling the visibility of a modal (showModal), enabling
+            the submission button (enableSubmit), and storing input values for patient details (patientName, patientCode, severity).
+
+            Upon mounting, the component fetches the latest patient data from the server using the updatePatientData function, which
+            is defined using useCallback to prevent unnecessary re-renders. This function is called inside a useEffect hook to
+            ensure the data is fetched when the component mounts and whenever the updatePatientData function changes. Another
+            useEffect hook monitors the input states and enables the submit button only when all fields are filled out.
+
+            The component renders a list of patient data, displaying details such as name, code, severity, and wait time. Each list
+            item includes an "Admit" button that sends a PATCH request to update the patient's status and refreshes the data. The
+            component also includes a logout button that clears the admin username from local storage and changes the user state to
+            "SignedOut."
+
+            A modal is used to add new patients, which is toggled by a button. The modal contains a form with inputs for patient
+            name, code, and severity. The form submission handler (addPatientHandler) sends a POST request to the server to add a
+            new patient and refreshes the patient data upon successful submission. The form submission button is disabled unless all
+            fields are correctly filled, ensuring data integrity.
+
+            The styling of the component, managed through an external CSS file (Admin.css), ensures a user-friendly and visually
+            appealing interface. The main container has a dark blue background, rounded corners, and a box shadow to create a
+            card-like effect. The patient list is displayed with a flexible layout, and each patient item has a distinct background
+            color for readability. Buttons are styled with hover effects to enhance interactivity, and the modal overlays the entire
+            screen with a semi-transparent background, focusing the user’s attention on the form.
+
+            Overall, the Admin component is designed to provide a robust and efficient interface for managing patient data, with a
+            focus on usability, data integrity, and visual appeal.</p>
+            <br>
+            <h3>JavaScript and Logic</h3>
+            <br>
+            <b>Logging in</b>
+            <p>The login functionality is implemented in both the frontend and backend, facilitating the authentication of patients and
+            administrators. On the frontend, the Login component handles user input and sends a POST request to the server with the
+            login credentials. For patients, the endpoint /patient/login is used, whereas for admins, the endpoint /admin/login is
+            targeted. The backend, defined in admin.js and patient.js, receives these requests and utilizes service functions
+            (getAdmin and getPatient) to query the database for matching credentials. If a match is found, the server responds with
+            the user data; otherwise, it returns an error message. The database query logic is handled using MySQL queries, ensuring
+            secure and efficient data retrieval.</p>
+            <br>
+            <b>Viewing Patient Data</b>
+            <p>In the Admin component, patient data is fetched and displayed. The frontend makes an asynchronous GET request to the
+            /patient/all endpoint to retrieve all patient data that has not been admitted yet. This request is handled by the
+            backend in patient.js, which calls the getAllPatientData service function. This function executes a complex SQL query
+            that joins multiple tables (patients, triage_records, and administrators) to fetch comprehensive patient information,
+            including their wait times and severity levels. The fetched data is then sent back to the frontend, where it is rendered
+            in a list format for the admin to view.</p>
+            <br>
+            <b>Admitting a Patient</b>
+            <p>When an admin admits a patient, the Admin component triggers the admitHandler function, which sends a PATCH request to
+            the /patient/admit endpoint with the patient's ID. The backend route in patient.js calls the admitPatient service
+            function, which updates the patient's status in the database to indicate they have been admitted. The function also
+            adjusts the wait times of other patients to reflect the change in queue dynamics. The SQL queries handle updating the
+            admitted status and decrementing the wait times of other patients appropriately, ensuring the queue remains accurate and
+            fair.</p>
+            <br>
+            <b>Adding a new Patient</b>
+            <p>Adding a new patient involves displaying a modal form in the Admin component, where the admin inputs the patient's name,
+            code, and severity level. The form submission triggers the addPatientHandler function, which sends a POST request to the
+            /patient/add endpoint. The backend handles this request in patient.js by calling the addPatient service function. This
+            function inserts the new patient into the patients table and associates them with a triage record, calculating their
+            wait time based on the severity and existing queue. The wait time calculation ensures that more severe cases are
+            prioritized appropriately. The database operations involve multiple steps, including inserting records and updating wait
+            times, ensuring the new patient is integrated seamlessly into the system.</p>
+         </div>
+      </section>
+      <section class="project">
          <h2>Tic Tac Toe Game (CSI3140)</h2>
          <h3 class="author">By Jordan Na and Jas Dhindsa</h3>
          <button class="git-btn">
@@ -104,14 +261,20 @@
 
             <h3>UI</h3>
             <b>Design of the main container</b>
-            <p>The main container is made of a main element. It uses CSS grid to orient the layout to allow the subcomponents to situate themselves inside.</p>
+            <p>The main container is made of a main element. It uses CSS grid to orient the layout to allow the
+               subcomponents to situate themselves inside.</p>
             <ul>
-               <li><b>display: grid</b>: This makes the element a grid container, enabling the use of CSS Grid Layout for its child elements.</li>
-               <li><b>grid-template-columns repeat(3, 170px)</b>: This defines three columns in the grid, each 170 pixels wide.</li>
-               <li><b>grid-template-rows 45px repeat(3, 170px) 80px</b>: This defines the rows in the grid. The first row is 45 pixels tall, followed by three rows each 170 pixels tall, and a final row 80 pixels tall.</li>
+               <li><b>display: grid</b>: This makes the element a grid container, enabling the use of CSS Grid Layout
+                  for its child elements.</li>
+               <li><b>grid-template-columns repeat(3, 170px)</b>: This defines three columns in the grid, each 170
+                  pixels wide.</li>
+               <li><b>grid-template-rows 45px repeat(3, 170px) 80px</b>: This defines the rows in the grid. The first
+                  row is 45 pixels tall, followed by three rows each 170 pixels tall, and a final row 80 pixels tall.
+               </li>
                <li><b>row-gap 20px</b>: This sets a 20-pixel gap between each row in the grid.</li>
                <li><b>column-gap 20px</b>: This sets a 20-pixel gap between each column in the grid.</li>
-               <li><b>align-items stretch</b>: This makes the items within the grid stretch to fill the entire height of their grid area.</li>
+               <li><b>align-items stretch</b>: This makes the items within the grid stretch to fill the entire height of
+                  their grid area.</li>
             </ul>
             <br>
             <b>Design of the header</b>
@@ -124,8 +287,10 @@
                </li>
                <li><b>Turn indicator</b>
                   <ul>
-                     <li>A div that has an img for the icon corresponding to the current turn, and a span containing the text "turn"</li>
-                     <li>JavaScript is used to update the src property of the img to either an "x" or "o" depending on whos turn it is</li>
+                     <li>A div that has an img for the icon corresponding to the current turn, and a span containing the
+                        text "turn"</li>
+                     <li>JavaScript is used to update the src property of the img to either an "x" or "o" depending on
+                        whos turn it is</li>
                   </ul>
                </li>
                <li><b>Reset button</b>
@@ -138,33 +303,44 @@
 
             <br>
             <b>Design of the grid</b>
-               <p>The grid is nothing more than a series of divs. Due to the nature of the grid layout of the parent element, the main container, the cells naturally form a grid. Each cell in the grid has a border bottom property to display a shadow like appearance for a more 3d effect. Each cell in the grid can have a css class that will add an "x" or "o" icon as well as disable pointer events.</p>
+            <p>The grid is nothing more than a series of divs. Due to the nature of the grid layout of the parent
+               element, the main container, the cells naturally form a grid. Each cell in the grid has a border bottom
+               property to display a shadow like appearance for a more 3d effect. Each cell in the grid can have a css
+               class that will add an "x" or "o" icon as well as disable pointer events.</p>
 
             <br>
             <b>Design of the scoreboard</b>
-               <p>The scoreboard consists of 3 divs, each with their own color to make them distinctly represent the different score counts. Each div has a child span whos text is updated to display the score.</p>
-            
+            <p>The scoreboard consists of 3 divs, each with their own color to make them distinctly represent the
+               different score counts. Each div has a child span whos text is updated to display the score.</p>
+
             <br>
             <b>Design of the banner</b>
-               <p>The banner, also known as the game result container, displays the result of the game. The <b>toggleGameResult</b> function in <b>tic-tac-toes.mjs</b> gets called to then toggle classes on the elemnts representing the game result banner. These css classes cuase an animation occurr to bring the game result banner into view.</p>
-            
+            <p>The banner, also known as the game result container, displays the result of the game. The
+               <b>toggleGameResult</b> function in <b>tic-tac-toes.mjs</b> gets called to then toggle classes on the
+               elemnts representing the game result banner. These css classes cuase an animation occurr to bring the
+               game result banner into view.</p>
+
             <br>
             <h3>JavaScript and Logic</h3>
 
             <b>Filling in a cell</b>
-            <p>When a player fills in a cell, they do so by triggering a click event on any one of the cells in the grid. One of two thing can happen:</p>
+            <p>When a player fills in a cell, they do so by triggering a click event on any one of the cells in the
+               grid. One of two thing can happen:</p>
             <ul>
                <li><b>The cell is occupied</b>, meaning it has either an x or o in it
                   <ul>
-                     <li>In this case, the css property "pointer-events" will be set to "none", disallowing the user to trigger a click event on the cell</li>
+                     <li>In this case, the css property "pointer-events" will be set to "none", disallowing the user to
+                        trigger a click event on the cell</li>
                   </ul>
                </li>
                <li><b>The cell is empty</b>
                   <ul>
-                     <li>In this case, the cell has the css class added to either display an "x" or "o" (depending on the player's turn)</li>
+                     <li>In this case, the cell has the css class added to either display an "x" or "o" (depending on
+                        the player's turn)</li>
                      <li>A count of the number of total filled cells in the grid is incremented</li>
                      <li>A count of the player's filled cells on the current row and column is incremented</li>
-                     <li>Each player, both the user --and the cpu have an array "rows" and "columns" where rows[i] and columns[i] represent the number of "x"s and "o"s, respectively (0 <= i <= 3)</li>
+                     <li>Each player, both the user --and the cpu have an array "rows" and "columns" where rows[i] and
+                        columns[i] represent the number of "x"s and "o"s, respectively (0 <= i <=3)</li>
                   </ul>
                </li>
             </ul>
@@ -172,7 +348,8 @@
             <br>
             <b>Computer turn</b>
             <ul>
-               <li>After the player fills in a cell and has their turn, the entire program waits 1.5 seconds (using async/await) to simulate the computer thinking.</li>
+               <li>After the player fills in a cell and has their turn, the entire program waits 1.5 seconds (using
+                  async/await) to simulate the computer thinking.</li>
                <li>The computer then fills in a cell with the exact same mechanism as the user filling a cell.</li>
                <li>During the computer's turn, pointer events on the grid are disabled for the user.</li>
             </ul>
@@ -182,7 +359,9 @@
             <ul>
                <li><b>User winning:</b>
                   <ul>
-                     <li>Each time the user places a cell, the number of filled cells across the current row, the current column, and both diagonals are checked to see if they equal 3 (which then indicates 3 in a row).</li>
+                     <li>Each time the user places a cell, the number of filled cells across the current row, the
+                        current column, and both diagonals are checked to see if they equal 3 (which then indicates 3 in
+                        a row).</li>
                      <li>If it does equal 3, the winning cells are highlighted and then the win banner appears.</li>
                   </ul>
                </li>
@@ -193,7 +372,8 @@
                </li>
                <li><b>Draw:</b>
                   <ul>
-                     <li>When a draw occurs, the variable that keeps track of the number of filled cells is found to be equal to the total number of cells.</li>
+                     <li>When a draw occurs, the variable that keeps track of the number of filled cells is found to be
+                        equal to the total number of cells.</li>
                      <li>In this case, it is then known that all cells are full and no 3 in a row has been found.</li>
                      <li>The draw banner appears.</li>
                   </ul>
@@ -204,26 +384,30 @@
             <ul>
                <li>The scoreboard has 3 variables: The player score, the number of ties, and the computer score.</li>
                <li>These values are incremented depending on the game result.</li>
-               <li>By using the local storage, the game scores can be stored on the local machine to be able to persist between different sessions of running the application.</li>
+               <li>By using the local storage, the game scores can be stored on the local machine to be able to persist
+                  between different sessions of running the application.</li>
             </ul>
 
             <br>
             <b>Reset</b>
             <ul>
-               <li>The game reset feature is used to clear the board and reset all variables to their default initial values.</li>
+               <li>The game reset feature is used to clear the board and reset all variables to their default initial
+                  values.</li>
                <li>This includes:
                   <ul>
                      <li>Removing all classes from the cells that pertain to the filled in symbol (x or o).</li>
                      <li>Setting the number of filled in cells to 0.</li>
-                     <li>Setting the number of filled in player cells and computer cells across all rows and columns to 0.</li>
-                     <li>Setting the player score, number of ties, computer score to 0 (and subsequently the corresponding local storage values to 0).</li>
+                     <li>Setting the number of filled in player cells and computer cells across all rows and columns to
+                        0.</li>
+                     <li>Setting the player score, number of ties, computer score to 0 (and subsequently the
+                        corresponding local storage values to 0).</li>
                   </ul>
                </li>
             </ul>
          </div>
       </section>
 
-         </div>
+      </div>
       </section>
       <section class="project">
          <h2>Trivia Quiz Project</h2>
